@@ -4,12 +4,18 @@
 
   let jshint = require("jshint").JSHINT;
   let fs = require("fs");
+  let merge = require('merge');
 
-  exports.lintOneFile = function(fileName) {
+  const DEFAULT_OPTIONS = {
+    options:{},
+    globals:{}
+  }
+  exports.lintOneFile = function(fileName, userOptions) {
     console.log(fileName);
+    let options = merge(userOptions, DEFAULT_OPTIONS.options);
     fs.readFile(fileName, "utf8", function(err, data) {
       if (err) throw err;
-      console.log(validateSources(data, {}, {}, fileName));
+      console.log(validateSources(data, options, {}, fileName));
     });
   }
 
@@ -36,8 +42,8 @@
       var evidence = (error.evidence !== undefined) ? ": " + error.evidence.trim() : "";
       var code = (error.code !== undefined) ? " (" + error.code + ")" : "";
 
-      result.push(error.line + evidence);
-      result.push("   " + error.reason + code);
+      result.push(`line ${error.line} ${evidence}`);
+      result.push(`  ${error.reason} ${code}` );
     });
     return result;
   };

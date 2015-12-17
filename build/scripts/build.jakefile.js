@@ -2,6 +2,7 @@
 (()=>{
   "use strict";
   //Requirements
+  let jshintConf = require('../config/jshint.conf');
   let jshint = require('../plugins/tpk-jshint');
 
   desc("Default task to lint test");
@@ -11,7 +12,7 @@
   task("lint", ["lintClient", "lintServer"]);
 
   task("lintClient", ()=>{
-    jshint.lintOneFile('build/scripts/build.jakefile.js');
+    jshint.lintOneFile('build/scripts/build.jakefile.js', jshintConf.nodeOptions);
   });
 
   task("lintServer", ()=>{
