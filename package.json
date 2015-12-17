@@ -12,9 +12,11 @@
   "license": "MIT",
   "devDependencies": {
     "async": "^1.5.0",
+    "chalk": "^1.1.1",
     "glob": "^6.0.1",
     "jake": "^8.0.12",
     "jshint": "^2.8.0",
-    "merge": "^1.2.0"
+    "merge": "^1.2.0",
+    "sass-lint": "^1.4.0"
   }
 }

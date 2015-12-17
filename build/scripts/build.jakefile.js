@@ -3,6 +3,7 @@
 {
   "use strict";
   //Requirements
+  let chalk = require('chalk');
   let jshintConf = require('../config/jshint.conf');
   let jshint = require('../plugins/tpk-jshint');
 
@@ -14,7 +15,7 @@
 
   task("lintClient", () =>
   {
-    console.log("lintClient");
+    console.log(chalk.bgBlue('############## Linting Client Code ##############'));
     let options = {
       files: 'build/**/*.js',
       options: jshintConf.clientOptions,
@@ -28,7 +29,7 @@
 
   task("lintServer", () =>
   {
-    console.log("lintServer");
+    console.log(chalk.bgBlue('############## Linting Server Code ##############'));
   });
 
 }());

@@ -1,20 +1,4 @@
 // Copyright (c) 2015 TRIPTYK S.P.R.L. All rights reserved.
-////////////EXAMPLE OF USE////////////////////////////
-// task("lintClient", () =>
-// {
-//   console.log("lintClient");
-//   let options = {
-//     fileName: 'build/scripts/build.jakefile.js',
-//     options: jshintConf.clientOptions,
-//     globals : jshintConf.clientGlobals
-//   };
-//   jshint.lintOneFile(options, complete, fail);
-// },
-// {
-//   async: true
-// });
-///////////////////////////////////////////////////////
-
 (() =>
 {
   "use strict";
@@ -25,24 +9,16 @@
   let merge = require('merge');
   let glob = require('glob');
   let async = require('async');
-  const DEFAULT_OPTIONS = {
-    options:
-    {},
-    globals:
-    {}
-  };
 
-  function lintFile(lintOptions, cb)
+  function lintFile(lintOptions, cb, fail)
   {
     let fileName = lintOptions.files;
     let argOptions = lintOptions.options;
     let argGlobals = lintOptions.globals;
-    let options = merge(argOptions, DEFAULT_OPTIONS.options);
-    let globals = merge(argGlobals, DEFAULT_OPTIONS.globals);
     fs.readFile(fileName, "utf8", function(err, data)
     {
       if (err) return fail(err);
-      validateSources(data, options, globals, fileName);
+      validateSources(data, argOptions, argGlobals, fileName);
       cb();
     });
   }
