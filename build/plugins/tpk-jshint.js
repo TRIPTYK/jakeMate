@@ -7,13 +7,13 @@
 
   exports.lintOneFile = function(fileName) {
     console.log(fileName);
-    fs.readFile(fileName,"utf8", function(err, data) {
-      if(err) throw err;
-      console.log(validateSources(data,{},{},fileName));
+    fs.readFile(fileName, "utf8", function(err, data) {
+      if (err) throw err;
+      console.log(validateSources(data, {}, {}, fileName));
     });
   }
 
-  function validateSources(sourceCode, options, globals,name) {
+  function validateSources(sourceCode, options, globals, name) {
     var pass = jshint(sourceCode, options, globals);
     if (!pass) reportErrors(name);
     return pass;
@@ -23,6 +23,23 @@
     // The errors from the last run are stored globally on the jshint object. Yeah.
     name = name ? name + " " : "";
     console.log("\n" + name + "failed");
-    console.log(jshint.errors);
+    translate(jshint.errors).forEach((errorLine)=>{
+      console.error(errorLine);
+    });
   }
-}());
+
+  function translate(errors) {
+    var result = [];
+
+    errors.forEach(function(error) {
+      if (error === null) return;
+      var evidence = (error.evidence !== undefined) ? ": " + error.evidence.trim() : "";
+      var code = (error.code !== undefined) ? " (" + error.code + ")" : "";
+
+      result.push(error.line + evidence);
+      result.push("   " + error.reason + code);
+    });
+    return result;
+  };
+
+})();
