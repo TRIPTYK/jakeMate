@@ -1,5 +1,6 @@
 // Copyright (c) 2015 TRIPTYK S.P.R.L. All rights reserved.
-(()=>{
+(() =>
+{
   "use strict";
   //Requirements
   let jshintConf = require('../config/jshint.conf');
@@ -11,12 +12,23 @@
   desc("Task to lint js client and server files");
   task("lint", ["lintClient", "lintServer"]);
 
-  task("lintClient", ()=>{
-    jshint.lintOneFile('build/scripts/build.jakefile.js', jshintConf.nodeOptions);
+  task("lintClient", () =>
+  {
+    console.log("lintClient");
+    let options = {
+      files: 'build/scripts/build.jakefile.js',
+      options: jshintConf.clientOptions,
+      globals : jshintConf.clientGlobals
+    };
+    jshint.lintOneFile(options, complete, fail);
+  },
+  {
+    async: true
   });
 
-  task("lintServer", ()=>{
-
+  task("lintServer", () =>
+  {
+    console.log("lintServer");
   });
 
 }());

@@ -1,4 +1,20 @@
 // Copyright (c) 2015 TRIPTYK S.P.R.L. All rights reserved.
+////////////EXAMPLE OF USE////////////////////////////
+// task("lintClient", () =>
+// {
+//   console.log("lintClient");
+//   let options = {
+//     fileName: 'build/scripts/build.jakefile.js',
+//     options: jshintConf.clientOptions,
+//     globals : jshintConf.clientGlobals
+//   };
+//   jshint.lintOneFile(options, complete, fail);
+// },
+// {
+//   async: true
+// });
+///////////////////////////////////////////////////////
+
 (() => {
   "use strict";
 
@@ -10,13 +26,21 @@
     options:{},
     globals:{}
   }
-  exports.lintOneFile = function(fileName, userOptions) {
-    console.log(fileName);
-    let options = merge(userOptions, DEFAULT_OPTIONS.options);
+  exports.lintOneFile = function(lintOptions,success,fail) {
+    let fileName = lintOptions.files;
+    let argOptions= lintOptions.options;
+    let argGlobals = lintOptions.globals
+    let options = merge(argOptions, DEFAULT_OPTIONS.options);
+    let globals = merge(argGlobals, DEFAULT_OPTIONS.globals);
     fs.readFile(fileName, "utf8", function(err, data) {
-      if (err) throw err;
-      console.log(validateSources(data, options, {}, fileName));
+      if (err) return fail(err);
+      validateSources(data, options, globals, lintOptions.fileName);
+      success()
     });
+  }
+
+  exports.lintFiles = function(lintOptions,success,fail) {
+    console.log(lintOptions);
   }
 
   function validateSources(sourceCode, options, globals, name) {
