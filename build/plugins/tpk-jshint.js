@@ -1,21 +1,28 @@
 // Copyright (c) 2015 TRIPTYK S.P.R.L. All rights reserved.
-(()=>{
+(() => {
   "use strict";
 
   let jshint = require("jshint").JSHINT;
   let fs = require("fs");
 
-  exports.lintOneFile = function (Objet1){
-    console.log(Objet1);
-    fs.readFile(Objet1, function(err, data){
-      validateSources(data);
+  exports.lintOneFile = function(fileName) {
+    console.log(fileName);
+    fs.readFile(fileName,"utf8", function(err, data) {
+      if(err) throw err;
+      console.log(validateSources(data,{},{},fileName));
     });
   }
 
-  function validateSources(sourceCode, options, globals){
+  function validateSources(sourceCode, options, globals,name) {
     var pass = jshint(sourceCode, options, globals);
-    console.log(pass.data());
-		// if (!pass) reportErrors(name);
-		// return pass;
+    if (!pass) reportErrors(name);
+    return pass;
+  }
+
+  function reportErrors(name) {
+    // The errors from the last run are stored globally on the jshint object. Yeah.
+    name = name ? name + " " : "";
+    console.log("\n" + name + "failed");
+    console.log(jshint.errors);
   }
 }());
