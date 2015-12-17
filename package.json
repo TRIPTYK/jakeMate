@@ -1,0 +1,13 @@
+{
+  "name": "jakemate",
+  "version": "0.0.1",
+  "description": "Automation process with jake",
+  "keywords": [
+    "Jake",
+    "sass",
+    "automation",
+    "git"
+  ],
+  "author": "The Crazy Digital Painter",
+  "license": "MIT"
+}
