@@ -16,11 +16,11 @@
   {
     console.log("lintClient");
     let options = {
-      files: 'build/scripts/build.jakefile.js',
+      files: 'build/**/*.js',
       options: jshintConf.clientOptions,
       globals : jshintConf.clientGlobals
     };
-    jshint.lintOneFile(options, complete, fail);
+    jshint.lintFiles(options, complete, fail);
   },
   {
     async: true

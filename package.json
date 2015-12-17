@@ -11,6 +11,8 @@
   "author": "The Crazy Digital Painter",
   "license": "MIT",
   "devDependencies": {
+    "async": "^1.5.0",
+    "glob": "^6.0.1",
     "jake": "^8.0.12",
     "jshint": "^2.8.0",
     "merge": "^1.2.0"
