@@ -6,12 +6,12 @@
   let chalk = require('chalk');
   let jshintConf = require('../config/jshint.conf');
   let jshint = require('../plugins/tpk-jshint');
-
+  let sassLint = require('../plugins/tpk-sass-lint');
   desc("Default task to lint test");
   task("default", ["lint"]);
 
   desc("Task to lint js client and server files");
-  task("lint", ["lintClient", "lintServer"]);
+  task("lint", ["lintClient", "lintServer","lintScss"]);
 
   task("lintClient", () =>
   {
@@ -19,7 +19,7 @@
     let options = {
       files: 'build/**/*.js',
       options: jshintConf.clientOptions,
-      globals : jshintConf.clientGlobals
+      globals: jshintConf.clientGlobals
     };
     jshint.lintFiles(options, complete, fail);
   },
@@ -30,6 +30,22 @@
   task("lintServer", () =>
   {
     console.log(chalk.bgBlue('############## Linting Server Code ##############'));
+  },{async:true});
+
+  desc("Task to lint scss ");
+  task("lintScss", [], () =>
+  {
+
+    console.log(chalk.bgBlue('############## Linting SCSS Code ##############'));
+    let options = {
+      files: 'src/client/sass/**/*.scss',
+    };
+    sassLint.lintOneFile(options, complete, fail);
+  },
+  {
+    async: true
   });
+
+
 
 }());
