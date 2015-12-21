@@ -30,13 +30,18 @@
   task("lintServer", () =>
   {
     console.log(chalk.bgBlue('############## Linting Server Code ##############'));
+    let options = {
+      files: 'build/**/*.js',
+      options: jshintConf.nodeOptions,
+      globals: jshintConf.nodeGlobals
+    };
+    jshint.lintFiles(options, complete, fail);
   },{async:true});
 
-  desc("Task to lint scss ");
-  task("lintScss", [], () =>
+  task("lintScss", () =>
   {
 
-    console.log(chalk.bgBlue('############## Linting SCSS Code ##############'));
+    console.log(chalk.bgBlue('############## Linting SCSS Code ################'));
     let options = {
       files: 'src/client/sass/**/*.scss',
     };

@@ -7,7 +7,8 @@
   {
     try
     {
-      var results = lint.lintFiles(lintOptions.files,{});
+      var results = lint.lintFiles(lintOptions.files,
+      {});
       console.log(lint.format(results));
     }
     catch (e)
@@ -15,7 +16,7 @@
       console.log(e);
     }
 
-  }
+  };
 
 
 
