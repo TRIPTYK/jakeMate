@@ -3,8 +3,7 @@
 {
   "use strict";
 
-  let jshint = require("jshint")
-    .JSHINT;
+  let jshint = require("jshint").JSHINT;
   let fs = require("fs");
   let merge = require('merge');
   let glob = require('glob');
